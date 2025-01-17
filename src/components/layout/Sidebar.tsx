@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Layout, Menu } from "antd";
 import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { studentPaths } from "../../routes/student.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 const { Sider } = Layout;
 
 const userRole = {
@@ -12,9 +15,11 @@ const userRole = {
 };
 
 const Sidebar = () => {
-    const role = "admin";
+    const user = useAppSelector(selectCurrentUser);
+
     let sidebarItems;
-    switch (role) {
+
+    switch (user!.role) {
         case userRole.ADMIN:
             sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
             break;
@@ -37,12 +42,8 @@ const Sidebar = () => {
         <Sider
             breakpoint="lg"
             collapsedWidth="0"
-            onBreakpoint={(broken) => {
-                console.log(broken);
-            }}
-            onCollapse={(collapsed, type) => {
-                console.log(collapsed, type);
-            }}
+            onBreakpoint={(broken) => {}}
+            onCollapse={(collapsed, type) => {}}
         >
             <div
                 style={{
