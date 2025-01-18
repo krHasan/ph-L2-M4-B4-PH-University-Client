@@ -5,7 +5,7 @@ import { useState } from "react";
 import Loader from "../../../components/layout/Loader";
 import { TQueryParam } from "../../../types";
 
-export type TTableData = Pick<
+type TTableData = Pick<
     TAcademicSemester,
     "name" | "year" | "startMonth" | "endMonth"
 >;

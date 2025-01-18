@@ -1,7 +1,7 @@
 import { Form, Select } from "antd";
 import { Controller } from "react-hook-form";
 
-type TPHSelectProps = {
+export type TPHSelectProps = {
     label: string;
     name: string;
     options: { value: string; label: string; disabled?: boolean }[];
