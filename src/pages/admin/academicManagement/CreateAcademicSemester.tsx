@@ -10,6 +10,8 @@ import { academicSemesterSchema } from "../../../schemas/academicManagement.sche
 import { useAddAcademicSemesterMutation } from "../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
 import { TResponse } from "../../../types/global";
+import { TAcademicSemester } from "../../../types/academicManagement.type";
+import PageHeader from "../../../components/layout/PageHeader";
 
 const currentYear = new Date().getFullYear();
 const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
@@ -31,7 +33,9 @@ const CreateAcademicSemester = () => {
         };
 
         try {
-            const res = (await addAcademicSemester(semesterData)) as TResponse;
+            const res = (await addAcademicSemester(
+                semesterData
+            )) as TResponse<TAcademicSemester>;
             if (res?.error) {
                 toast.error(res.error.data.message, { id: toastId });
             } else {
@@ -43,32 +47,39 @@ const CreateAcademicSemester = () => {
     };
 
     return (
-        <Flex justify="center" align="center">
-            <Col span={6}>
-                <PHForm
-                    onSubmit={onSubmit}
-                    resolver={zodResolver(academicSemesterSchema)}
-                >
-                    <PHSelect
-                        label="Name"
-                        name="name"
-                        options={semesterOptions}
-                    />
-                    <PHSelect label="Year" name="year" options={yearOptions} />
-                    <PHSelect
-                        label="Start Month"
-                        name="startMonth"
-                        options={monthOptions}
-                    />
-                    <PHSelect
-                        label="End Month"
-                        name="endMonth"
-                        options={monthOptions}
-                    />
-                    <Button htmlType="submit">Submit</Button>
-                </PHForm>
-            </Col>
-        </Flex>
+        <>
+            <PageHeader text="Create Academic Semester" />
+            <Flex justify="center" align="center">
+                <Col span={6}>
+                    <PHForm
+                        onSubmit={onSubmit}
+                        resolver={zodResolver(academicSemesterSchema)}
+                    >
+                        <PHSelect
+                            label="Name"
+                            name="name"
+                            options={semesterOptions}
+                        />
+                        <PHSelect
+                            label="Year"
+                            name="year"
+                            options={yearOptions}
+                        />
+                        <PHSelect
+                            label="Start Month"
+                            name="startMonth"
+                            options={monthOptions}
+                        />
+                        <PHSelect
+                            label="End Month"
+                            name="endMonth"
+                            options={monthOptions}
+                        />
+                        <Button htmlType="submit">Submit</Button>
+                    </PHForm>
+                </Col>
+            </Flex>
+        </>
     );
 };
 
